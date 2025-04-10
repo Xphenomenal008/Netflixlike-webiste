@@ -1,15 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useRef } from 'react'
+import { useAuthstore } from '../../store/zustand'
+
 const LoginPage = () => {
-    
     const emailref=useRef()
     const Passwordref=useRef()
+    const {login}=useAuthstore()
     const submithandler=(e)=>{
       e.preventDefault()
     const email=emailref.current.value
     const password=Passwordref.current.value
-    console.log(email,password)
+    login({email,password})
     }
     return (
         <div className='hero-bg h-screen w-screen'>
