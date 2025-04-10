@@ -1,11 +1,18 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useRef } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const AuthHome = () => {
+  const youremail=useRef()
+  const navigate=useNavigate()
+
+  const starthandler=(e)=>{
+  e.preventDefault()
+  navigate("/signup?email=" + youremail.current.value)
+  }
   return (
     <>
       <div className="hero-bg  relative">
-        {/* navbae*/}
+        {/* navbar*/}
         <header className="nav flex max-w-6xl mx-auto justify-between items-center align-middle p-4 pb-10">
           <div className="img">
             <img className="w-52" src="/netflix-logo.png" alt="logo" />
@@ -34,9 +41,10 @@ const AuthHome = () => {
                 className="md:w-96 w-40  p-3 rounded-sm border-gray-600  focus:outline-none focus:ring bg-black "
                 placeholder="Enter your email"
                 type="text"
+                ref={youremail}
               />
             </div>
-            <button className="bg-red-600 md:text-lg rounded-sm text-white p-3 w-28 md:w-40">
+            <button onClick={starthandler} className="bg-red-600 md:text-lg rounded-sm text-white p-3 w-28 md:w-40">
               Get Started
             </button>
           </div>

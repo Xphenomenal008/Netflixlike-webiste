@@ -88,3 +88,12 @@ export const logout=async(req,res)=>{
         
     }
    }
+   export async function authcheck(req,res){
+    try{
+        res.status(200).json({success:true,user:req.user})
+
+    }catch(e){
+        res.status(500).json({success:false,message:"internal error!!"})
+
+    }
+   }

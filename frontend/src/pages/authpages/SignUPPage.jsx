@@ -1,14 +1,23 @@
  import React, { useRef } from 'react'
- import { Link } from 'react-router-dom'
+ import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
+import { useAuthstore } from '../../store/zustand'
+ 
  const SignUPPage = () => {
+  const navigate=useNavigate()
+  const location=useLocation()
   const usernameref=useRef()
   const emailref=useRef()
   const Passwordref=useRef()
+  const searchParams = new URLSearchParams(location.search)
+  const emailvalue=searchParams.get("email") || ""
+  const {Oursignup}=useAuthstore()
   const submithandler=(e)=>{
     e.preventDefault()
   const username=usernameref.current.value
   const email=emailref.current.value
   const password=Passwordref.current.value
+    Oursignup({email,username,password})
+  
   console.log(username,email,password)
   }
     return (
@@ -23,7 +32,7 @@
             <form onSubmit={submithandler} className='py-4 flex flex-col gap-3'>
                 <div  className='flex flex-col text-white font-bold '>
                 <label htmlFor="email">Email</label>
-                <input ref={emailref} placeholder='JohnDoe@gamil.com' className='w-72  border-gray-600  focus:outline-none focus:ring bg-transparent  p-1 font-normal px-2 rounded-sm' name='email' type="email" />
+                <input defaultValue={emailvalue} ref={emailref} placeholder='JohnDoe@gamil.com' className='w-72  border-gray-600  focus:outline-none focus:ring bg-transparent  p-1 font-normal px-2 rounded-sm' name='email' type="email" />
                 </div>
                 <div className='flex flex-col text-white font-bold'>
                 <label htmlFor="Username">Username</label>
