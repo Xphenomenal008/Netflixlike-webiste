@@ -81,7 +81,7 @@ export const getmoviebycategory=async(req,res)=>{
         const data = await FetchfromTMDB(`https://api.themoviedb.org/3/movie/${category}?language=en-US&page=1`);
 
         // Send response
-        res.json({ success: true, categorydata: data.results});
+        res.json({ success: true, content: data.results});
 
     } catch (e) {
         console.error("Error fetching trending movies:", e.message);
