@@ -10,6 +10,7 @@ import { Toaster } from "react-hot-toast"
 import { useAuthstore } from "./store/zustand"
 import { useEffect } from "react"
 import { Loader } from "lucide-react"
+import Watch from "./pages/home/Watch"
 
 
 function App() {
@@ -41,7 +42,8 @@ function App() {
       <Route path="/" element={<OurHome></OurHome>}/>
       <Route path="/login" element={!user?<LoginPage></LoginPage>:<Navigate to={"/"}/>}/>
       <Route path="/signup" element={!user?<SignUPPage></SignUPPage>:<Navigate to={"/"}/>}/>
-    </Routes> 
+      <Route path="/watch/:id" element={user?<Watch></Watch>:<Navigate to={"/"}/>}/>
+      </Routes>
     <Footer></Footer>
     <Toaster></Toaster>
     </>

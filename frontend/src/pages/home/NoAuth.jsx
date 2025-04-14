@@ -39,14 +39,14 @@ const NoAuth = () => {
       <div className='absolute top-0 left-0 w-full h-full bg-black/50 -z-50'></div>
       <div className='absolute top-0 left-0 w-full h-full flex flex-col justify-center px-0 md:px-16 lg:px-32'>
         <div className='bg-gradient-to-b from-black via-transparent to-transparent absolute w-full h-full top-0 left-0  -z-10'></div>
-        <div className="main flex flex-col gap-2 p-4">
+        <div className="main flex flex-col gap-2 p-4 lg:w-[850px]">
           <h1 className='flex flex-col '>
   <span className='text-6xl font-extrabold text-balance'>{trending?.title || trending?.name}</span>
           <span className='text-lg mt-2'>{trending?.release_date?.split("-")[0] ||
              trending?.first_air_date?.split("-")[0]}{' '} | {trending?.adult?"18+":"PG-13"}</span>
           </h1>
          
-          <span className='text-lg'>
+          <span className='text-lg text-wrap flex flex-wrap'>
             {trending?.overview.length>200?trending?.overview.slice(0,200) + "....":trending?.overview}
           </span>
           <div className='flex gap-2 mt-2'>
@@ -59,7 +59,7 @@ const NoAuth = () => {
 
     <div className="two flex flex-col gap-10 bg-black py-10 text-white">
 {
-  contentType === "movies"?MOVIE_CATEGORY.map((item)=><Showlist item={item}></Showlist>):
+  contentType === "movies"?MOVIE_CATEGORY.map((item)=><Showlist   item={item}></Showlist>):
   TV_CATEGORY.map((item)=><Showlist item={item}></Showlist>)
 }
 
