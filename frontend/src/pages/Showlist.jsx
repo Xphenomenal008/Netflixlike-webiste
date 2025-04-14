@@ -12,7 +12,7 @@ const Showlist = ({ item }) => {
   const [showarrow, setshowarrow] = useState(false)
 
   const formattedcontentType = contentType === "movies" ? "movies" : "TV Shows"
-  const formattedcategoryName = item.replaceAll("-", " ")[0].toUpperCase() + item.replaceAll("-", " ").slice(1)
+  const formattedcategoryName = item.replaceAll("_", " ")[0].toUpperCase() + item.replaceAll("_", " ").slice(1)
 
   useEffect(() => {
     const getcontent = async () => {
@@ -24,14 +24,15 @@ const Showlist = ({ item }) => {
 
   const rightslide=()=>{
  sliderref.current.scrollBy({left:sliderref.current.offsetWidth,behavior:'smooth'})
+
   }
   const leftslide=()=>{
  sliderref.current.scrollBy({left:-sliderref.current.offsetWidth,behavior:'smooth'})
   }
 
   return (
-    <div className='text-white bg-black relative px-5'>
-      <h2 className='mb-4 text-lg'>{formattedcategoryName} {formattedcontentType}</h2>
+    <div className='text-white bg-black relative px-7'>
+      <h2 className='mb-4 text-lg font-extrabold'>{formattedcategoryName} {formattedcontentType}</h2>
       <div
         className='relative'
         onMouseEnter={() => setshowarrow(true)}
@@ -44,7 +45,7 @@ const Showlist = ({ item }) => {
                 <div className='overflow-hidden rounded-lg'>
                   <img className='transition-transform duration-300 ease-in-out group-hover:scale-125' src={SMALL_IMG_URL + item.backdrop_path} alt="movie" />
                 </div>
-                <span className='flex justify-center items-center'>{item.original_title || item.name}</span>
+                <span className='flex justify-center items-center '>{item.original_title || item.name}</span>
               </Link>
             ))
           }

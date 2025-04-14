@@ -4,7 +4,7 @@ const router=express.Router()
 router.get("/trending",getTrendingMovies)
 router.get("/:id/trailers",gettrailer)
 router.get("/:id/moviedetail",getmoviedetail)
-router.get("/:id/similermovie",getsimilermovie)
+router.get("/:id/similer",getsimilermovie)
 router.get("/:category",getmoviebycategory)
 
 export default router;

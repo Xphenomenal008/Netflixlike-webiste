@@ -55,7 +55,7 @@ const Navbar = () => {
           <Link to={"/"}>
             <Search />
           </Link>
-          <img src={user.image} className="h-8 cursor-pointer  l" alt="user" />
+          <img src={user?.image} className="h-8 cursor-pointer  l" alt="user" />
           <LogOut onClick={clickhandler} />
         </div>
       </header>
