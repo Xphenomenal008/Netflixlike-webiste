@@ -101,7 +101,7 @@ export const searchtv=async(req,res)=>{
         
 
     }catch(e){
-        return res.status(500).json({success:false,message:"internal server erro"})
+        return res.status(500).json({success:false,message:"internal server error"})
 
     }
 

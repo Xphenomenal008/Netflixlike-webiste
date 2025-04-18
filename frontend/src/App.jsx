@@ -9,8 +9,11 @@ import Footer from "./pages/components/Footer"
 import { Toaster } from "react-hot-toast"
 import { useAuthstore } from "./store/zustand"
 import { useEffect } from "react"
-import { Loader } from "lucide-react"
+import { Loader, Search } from "lucide-react"
 import Watch from "./pages/home/Watch"
+import Searchpage from "./pages/components/Search"
+import Searchhistory from "./pages/components/Searchhistory"
+import Error from "./pages/components/error"
 
 
 function App() {
@@ -43,6 +46,10 @@ function App() {
       <Route path="/login" element={!user?<LoginPage></LoginPage>:<Navigate to={"/"}/>}/>
       <Route path="/signup" element={!user?<SignUPPage></SignUPPage>:<Navigate to={"/"}/>}/>
       <Route path="/watch/:id" element={user?<Watch></Watch>:<Navigate to={"/"}/>}/>
+      <Route path="/search" element={user?<Searchpage></Searchpage>:<Navigate to={"/"}/>}/>
+      <Route path="/searchhistory" element={user?<Searchhistory></Searchhistory>:<Navigate to={"/"}/>}/>
+      <Route path="/*" element={<Error></Error>}/>
+
       </Routes>
     <Footer></Footer>
     <Toaster></Toaster>

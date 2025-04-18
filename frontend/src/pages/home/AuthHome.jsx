@@ -13,12 +13,12 @@ const AuthHome = () => {
     <>
       <div className="hero-bg  relative">
         {/* navbar*/}
-        <header className="nav flex max-w-6xl mx-auto justify-between items-center align-middle p-4 pb-10">
-          <div className="img">
-            <img className="w-52" src="/netflix-logo.png" alt="logo" />
+        <header className="nav  flex max-w-6xl mx-auto justify-between items-center px-3 md:h-28 mt-0 py-0 ">
+          <div className="img ">
+            <img className="w-72 " src="/logo-transparent.png" alt="logo" />
           </div>
 
-          <div className="btn text-white p-3 rounded-sm bg-red-600">
+          <div className="btn text-white p-3 h-12 rounded-sm bg-[rgba(196,31,50,0.91)]">
             <Link to={"/login"}>
               <button>Sign in</button>
             </Link>
@@ -44,7 +44,7 @@ const AuthHome = () => {
                 ref={youremail}
               />
             </div>
-            <button onClick={starthandler} className="bg-red-600 md:text-lg rounded-sm text-white p-3 w-28 md:w-40">
+            <button onClick={starthandler} className="bg-[rgba(196,31,50,0.91)] md:text-lg rounded-sm text-white p-2 w-28 md:w-40">
               Get Started
             </button>
           </div>
