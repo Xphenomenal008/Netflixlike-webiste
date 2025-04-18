@@ -109,10 +109,24 @@ const Watch = () => {
       </div>
       )
      }
+     if(!similercontent || !trailer || !mymoviedetail){
+      setloading(false)
+      return(
+        <div className="min-h-screen bg-black p-10">
+          <div className="max-w-6xl mx-auto">
+            <Navbar></Navbar>
+             <div className="text-center mx-auto h-full">
+              <h2 className="text-2xl text-center">Sorry content not found!</h2>
+
+             </div>
+          </div>
+        </div>
+        )
+     }
 
   return (
     <div className="bg-black min-h-screen text-white">
-      <div className="mx-auto container px-4 py-8 h-full">
+      <div className="mx-auto container px-4  h-full">
         <Navbar />
         {trailer.length > 0 && (
           <div className="flex justify-around mt-16  lg:mt-0 lg:justify-between item-center mb-4">
@@ -186,7 +200,7 @@ const Watch = () => {
         </div>
 
  {/* smiler section */}
- <div className='text-white bg-black relative px-16 mt-3'>
+ <div className='text-white bg-black relative px-16 mt-3 py-3  '>
       <h2 className='mb-4 text-xl font-extrabold'>Similer {contentType=="movies"?"Movies":"Tv Shows"}</h2>
       <div
         className='relative'

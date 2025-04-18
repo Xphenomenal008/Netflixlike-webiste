@@ -59,8 +59,8 @@ const NoAuth = () => {
 
     <div className="two flex flex-col gap-10 bg-black py-10 text-white">
 {
-  contentType === "movies"?MOVIE_CATEGORY.map((item)=><Showlist   item={item}></Showlist>):
-  TV_CATEGORY.map((item)=><Showlist item={item}></Showlist>)
+  contentType === "movies"?MOVIE_CATEGORY.map((item,ind)=><Showlist  key={ind} item={item}></Showlist>):
+  TV_CATEGORY.map((item,ind)=><Showlist key={ind} item={item}></Showlist>)
 }
 
     </div>

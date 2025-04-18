@@ -6,58 +6,73 @@ import { useContent } from '../../store/content';
 
 const Navbar = () => {
   const { user } = useAuthstore();
-  const [isOpen, setIsOpen] = useState(false); // hamburger menu toggle
-  const {contentType,setcontenttype}=useContent()
-  const {logout}=useAuthstore()
-  const clickhandler=()=>{
-    logout()
-}
-  console.log(contentType)
+  const [isOpen, setIsOpen] = useState(false);
+  const { contentType, setcontenttype } = useContent();
+  const { logout } = useAuthstore();
+
+  const clickhandler = () => {
+    logout();
+  };
 
   return (
     <>
-      <header className="flex justify-between items-center h-20 mx-auto p-4 flex-wrap max-w-6xl relative z-50">
-        <div className="flex items-center justify-between w-full md:w-auto">
+      <header className="relative z-50">
+        <div className="flex justify-between items-center h-20 px-4 md:h-28 mx-auto max-w-6xl">
           <Link to={"/"}>
-            <img src="/netflix-logo.png" className="w-32 sm:w-40" alt="logo" />
+            <img src="/logo-transparent.png" className="w-40 md:w-60" alt="logo" />
           </Link>
 
-          {/* Hamburger icon - shows only on small screens */}
-          <button
-            className="md:hidden z-50 "
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            <Menu size={28}/>
+          <button className="md:hidden z-50" onClick={() => setIsOpen(!isOpen)}>
+            <Menu size={28} />
           </button>
-        </div>
 
-        {/* Menu items */}
-        <nav
-          className={`w-full md:flex md:items-center md:w-auto transition-all duration-300 ease-in-out ${
-            isOpen ? 'block' : 'hidden'
-          }`}
-        >
-          <div className="flex flex-col md:flex-row gap-4 md:gap-6 mt-4 md:mt-0">
-            <Link to={"/"} onClick={()=>setcontenttype("movies")}  className="hover:underline">
+          {/* Desktop nav */}
+          <nav className="hidden md:flex md:items-center gap-6 text-white">
+            <Link to={"/"} onClick={() => setcontenttype("movies")} className="hover:underline">
               Movies
             </Link>
-            <Link to={"/"}  onClick={()=>setcontenttype("tvshow")} className="hover:underline">
+            <Link to={"/"} onClick={() => setcontenttype("tvshow")} className="hover:underline">
               Tv Show
             </Link>
-            <Link to={"/"}  onClick={()=>setcontenttype("tvshow")} className="hover:underline">
+            <Link to={"/searchhistory"} onClick={() => setcontenttype("tvshow")} className="hover:underline">
               Search History
             </Link>
-          </div>
-        </nav>
+          </nav>
 
-        {/* Right Side Icons */}
-        <div className="flex gap-3 items-center mt-4 md:mt-0 ">
-          <Link to={"/"}>
-            <Search />
-          </Link>
-          <img src={user?.image} className="h-8 cursor-pointer  l" alt="user" />
-          <LogOut onClick={clickhandler} />
+          {/* Desktop Icons */}
+          <div className="hidden md:flex gap-3 items-center text-white">
+            <Link to={"/search"}>
+              <Search />
+            </Link>
+            <img src={user?.image} className="h-8 cursor-pointer" alt="user" />
+            <LogOut onClick={clickhandler} />
+          </div>
         </div>
+
+        {/* Mobile Menu - Transparent dropdown overlay */}
+        {isOpen && (
+          <div className="absolute top-full left-0 w-full backdrop-blur-sm bg-white/10 px-4 py-6 flex flex-col gap-4 md:hidden z-40">
+            <nav className="flex flex-col gap-3 text-white">
+              <Link to={"/"} onClick={() => { setcontenttype("movies"); setIsOpen(false); }} className="hover:underline">
+                Movies
+              </Link>
+              <Link to={"/"} onClick={() => { setcontenttype("tvshow"); setIsOpen(false); }} className="hover:underline">
+                Tv Show
+              </Link>
+              <Link to={"/searchhistory"} onClick={() => { setcontenttype("tvshow"); setIsOpen(false); }} className="hover:underline">
+                Search History
+              </Link>
+            </nav>
+
+            <div className="flex gap-4 items-center pt-2 text-white">
+              <Link to={"/search"}>
+                <Search />
+              </Link>
+              <img src={user?.image} className="h-8 cursor-pointer" alt="user" />
+              <LogOut onClick={clickhandler} />
+            </div>
+          </div>
+        )}
       </header>
     </>
   );

@@ -15,9 +15,9 @@ const LoginPage = () => {
     }
     return (
         <div className='hero-bg h-screen w-screen'>
-        <header className='max-w-6xl mx-auto flex items-center justify-center p-4'>
+        <header className='max-w-6xl mx-auto flex items-center justify-center h-28'>
           <Link to="/">
-          <img className='w-52' src="\netflix-logo.png" alt="logo" />
+          <img className='w-72 flex justify-center items-center' src="\logo-transparent.png" alt="logo" />
           </Link>
         </header>
         <div className="sign flex flex-col items-center justify-center bg-black/60 mt-32 py-4 h-96 w-96 mx-auto rounded-md ">
@@ -31,7 +31,7 @@ const LoginPage = () => {
               <label  htmlFor="Password">Password</label>
               <input autoComplete='off' ref={Passwordref} placeholder={"••••••"} className='w-72  border-gray-700 focus:outline-none focus:ring bg-transparent px-2 p-1 font-normal rounded-sm' name='Password' type="Password" />
               </div>
-                <button className=' bg-red-600 text-white p-1 w-72'>Log in</button>
+                <button className=' bg-[rgba(196,31,50,0.91)] text-white p-1 w-72'>Log in</button>
           </form>
           <div className='text-slate-50 font-bold'>Donot have an account?{" "} <Link to="/signup"><span className='text-red-600'>Sign in</span></Link></div>
         </div>
