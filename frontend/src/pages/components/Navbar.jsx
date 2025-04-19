@@ -17,9 +17,9 @@ const Navbar = () => {
   return (
     <>
       <header className="relative z-50">
-        <div className="flex justify-between items-center h-20 px-4 md:h-28 mx-auto max-w-6xl">
+        <div className="flex justify-between items-center h-20  md:h-28 mx-auto max-w-6xl">
           <Link to={"/"}>
-            <img src="/logo-transparent.png" className="w-40 md:w-60" alt="logo" />
+            <img src="/logo-transparent.png" className=" flex justify-start items-start p-0 w-40 md:w-60" alt="logo" />
           </Link>
 
           <button className="md:hidden z-50" onClick={() => setIsOpen(!isOpen)}>
@@ -27,7 +27,7 @@ const Navbar = () => {
           </button>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex md:items-center gap-6 text-white">
+          <nav className="hidden md:flex md:items-center gap-6 text-white px-16">
             <Link to={"/"} onClick={() => setcontenttype("movies")} className="hover:underline">
               Movies
             </Link>
@@ -40,7 +40,7 @@ const Navbar = () => {
           </nav>
 
           {/* Desktop Icons */}
-          <div className="hidden md:flex gap-3 items-center text-white">
+          <div className="hidden md:flex gap-3 items-center text-white ">
             <Link to={"/search"}>
               <Search />
             </Link>

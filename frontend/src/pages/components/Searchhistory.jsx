@@ -42,10 +42,21 @@ const Searchhistory = () => {
     }
   };
 
+  if(searchres.length<=0){
+    return <div className='h-screen bg-black text-white '>
+     <Navbar></Navbar>
+     <div className='text-center mt-4 text-3xl font-bold ml-12'>No Search history Found! 🙄</div>
+       
+    </div>
+  }
+
   return (
     <div className='h-screen bg-black text-white'>
       <Navbar />
+      
+
       <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6 px-6 py-2'>
+
         {
           searchres.map((res, index) => (
             <div key={index} className="bg-slate-700 p-3 rounded text-center font-bold flex justify-between sm:justify-evenly items-center text-white">

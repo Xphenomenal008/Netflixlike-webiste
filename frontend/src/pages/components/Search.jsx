@@ -67,10 +67,10 @@ const Searchpage = () => {
         </button>
       </div>
 
-      <div className="flex justify-center items-center mt-3 gap-1">
+      <div className="flex justify-center items-center mt-3 space-x-2">
         <form
           onSubmit={handleSubmit}
-          className="flex justify-center items-center"
+          className="flex justify-center items-center gap-2"
         >
           <input
             ref={name}
