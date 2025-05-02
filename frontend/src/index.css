@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .hero-bg{
-  background-image:linear-gradient(rgba(0,0,0.8),rgba(0,0,0,0.5)),url("hero.png");
+  background-image:linear-gradient(rgba(0, 0, 1, 0.922),rgba(0,0,0,0.5)),url("/hero.png");
 }
 
  
