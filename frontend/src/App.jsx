@@ -13,7 +13,7 @@ import { Loader, Search } from "lucide-react"
 import Watch from "./pages/home/Watch"
 import Searchpage from "./pages/components/Search"
 import Searchhistory from "./pages/components/Searchhistory"
-import Error from "./pages/components/error"
+import Error from './pages/components/Error'
 
 
 function App() {
