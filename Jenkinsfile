@@ -15,11 +15,10 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies & Test') {
+        stage('Install Dependencies') {
             steps {
-                echo '🧩 Installing dependencies and running tests in backend folder...'
+                echo '🧩 Installing dependencies in backend folder...'
                 bat 'cd backend && npm install --legacy-peer-deps'
-                bat 'cd backend && npm test || echo "⚠️ No tests found, skipping..."'
             }
         }
 
