@@ -16,11 +16,13 @@ pipeline {
         }
 
         stage('Install Dependencies & Test') {
-            steps {
-                echo '🧩 Installing dependencies and running tests...'
-                bat 'npm install --legacy-peer-deps'
-                bat 'npm test || echo "⚠️ No tests found, skipping..."'
-            }
+       steps {
+        echo '🧩 Installing dependencies and running tests...'
+        bat 'cd backend && npm install --legacy-peer-deps'
+        bat 'cd backend && npm test || echo "⚠️ No tests found, skipping..."'
+    }
+}
+
         }
 
         stage('Build Docker Image') {
