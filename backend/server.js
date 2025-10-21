@@ -2,6 +2,7 @@ import express from "express";
 import Auth from "./routes/Auth_route.js" ;
 import movieRoute from "./routes/movieRoute.js"
 import searchRoute from './routes/Search_route.js'
+import AiRoute from './routes/AI_route.js'
 import tvshow from "./routes/Tvshow_route.js"
 import { ENV_VARS } from "./config/envVar.js";
 import { connectDB } from "./config/Db.js";
@@ -10,6 +11,7 @@ import cookieParser from "cookie-parser";
 import protectroute from "./middleware/protectRoute.js";
 import path from 'path';
 import { fileURLToPath } from 'url';
+import cors from "cors";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -20,6 +22,14 @@ const app=express();
 const port=ENV_VARS.PORT;
 
 
+app.use(
+  cors({
+    origin: "http://localhost:5173", // your frontend URL
+    credentials: true,               // 👈 allows cookies
+  })
+);
+
+
 app.use(express.json())//it let use parse incoming req.body data ...that is urlencodeed format to json fromat
 app.use(cookieParser())
 
@@ -28,6 +38,7 @@ app.use("/api/v1/auth",Auth)
 app.use("/api/v1/movies",protectroute,movieRoute)
 app.use("/api/v1/tvshow",protectroute,tvshow)
 app.use("/api/v1/search",protectroute,searchRoute)
+app.use("/api/v1/ai_summerizer",protectroute,AiRoute)
 
 
 if(ENV_VARS.NODEENV==="production"){

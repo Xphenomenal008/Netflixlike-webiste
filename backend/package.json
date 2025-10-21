@@ -2,13 +2,13 @@
   "name": "netflix-clone",
   "version": "1.0.0",
   "main": "backend/server.js",
- "scripts": {
-  "dev": "NODE_ENV=development nodemon backend/server.js",
-  "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
-  "start": "node backend/server.js"
-},
+  "scripts": {
+    "dev": "NODE_ENV=development nodemon backend/server.js",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
+    "start": "node backend/server.js"
+  },
   "keywords": [],
-  "type": "module", 
+  "type": "module",
   "author": "ASHUTOSH KATOCH",
   "license": "ISC",
   "description": "",
@@ -16,6 +16,7 @@
     "axios": "^1.8.4",
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",

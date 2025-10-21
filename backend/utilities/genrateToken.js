@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+ import jwt from "jsonwebtoken";
 import { ENV_VARS } from "../config/envVar.js";
 
 export const genrateTokenAndSetCokkie = (userId, res) => {

@@ -107,23 +107,65 @@ export const searchtv=async(req,res)=>{
 
 }
 
-export const removeitemfromSearchHistory=async(req,res)=>{
-    let {id}=req.params;
-     id=Number(id)
-    try{
-        await User.findByIdAndUpdate(req.user._id,{
-            $pull:{
-                searchHistory:{id:id}
-            }
-        })
-        return res.status(200).json({success:true,message:"Deleted sucessfully"})
+ 
 
+export const addToSearchHistory = async (req, res) => {
+  try {
+    const { userId, id, title, searchtype, image } = req.body; // include id
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ message: "User not found" });
 
-    }catch(e){
-        return res.status(500).json({success:false,message:e})
+    // ✅ Prevent duplicates (by TMDB id + type)
+    const exists = user.searchHistory.find(
+      (item) => item.id === id && item.searchtype === searchtype
+    );
 
+    if (!exists) {
+      user.searchHistory.push({ id, title, searchtype, image, createdAt: new Date() });
+
+      // Optional: keep last 20 searches
+      if (user.searchHistory.length > 20) {
+        user.searchHistory.shift(); // remove oldest
+      }
+
+      await user.save();
     }
 
+    res.json({ message: "Added to search history" });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ message: "Failed to add history" });
+  }
+};
 
 
-}
+export const getSearchHistory = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const user = await User.findById(userId).select("searchHistory");
+    res.json({ history: user.searchHistory || [] });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch history" });
+  }
+};
+
+export const removeitemfromSearchHistory = async (req, res) => {
+  try {
+    const { id } = req.params; // TMDB id
+    const userId = req.user._id;
+
+    // ✅ Delete by TMDB id (number)
+    await User.findByIdAndUpdate(userId, {
+      $pull: { searchHistory: { id: Number(id) } },
+    });
+
+    res.json({ success: true, message: "Item removed" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to remove item" });
+  }
+};
+
+
+
+

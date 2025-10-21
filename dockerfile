@@ -12,7 +12,7 @@
     
     # Copy backend code
     COPY ./backend ./backend
-    COPY package*.json ./
+    COPY ./backend/package*.json ./
     RUN npm install
     
     # Copy built frontend from previous stage into backend
