@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-cred')     // Docker Hub credentials ID
         RENDER_DEPLOY_URL = credentials('render-hook-url')        // Render Deploy Hook credential ID
-        DOCKER_IMAGE = "yourdockerhubusername/mern-app"           // replace with your Docker Hub image name
+        DOCKER_IMAGE = "xphenomenal/mern-app"           // replace with your Docker Hub image name
     }
 
     stages {
