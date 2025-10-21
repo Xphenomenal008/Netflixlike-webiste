@@ -31,8 +31,9 @@ The pipeline is defined in the `Jenkinsfile` located in the **root of the projec
 
 Here are screenshots of the Jenkins pipeline running successfully:
 
-![Jenkins Pipeline - Stage 1](proj-img/Screenshot 2025-10-21 162434.png)  
-![Jenkins Pipeline - Stage 2](proj-img/Screenshot 2025-10-21 171817.png)
+![Jenkins Pipeline - Stage 1](proj-img/Screenshot%202025-10-21%20162434.png)  
+![Jenkins Pipeline - Stage 2](proj-img/Screenshot%202025-10-21%20171817.png)
+
 
 ## 🔹 Deployed Website
 
@@ -41,7 +42,7 @@ The app is live and can be accessed here:
 
 Here’s a screenshot of the deployed app:
 
-![Deployed App](assets/website.png)
+![Deployed App](proj-img/Screenshot%202025-10-21%20172424.png)
 
 ---
 
