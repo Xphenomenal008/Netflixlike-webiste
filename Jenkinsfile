@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-cred')     // your Docker Hub credentials ID
-        RENDER_DEPLOY_URL = credentials('render-hook-url')        // your Render Deploy Hook credential ID
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-cred')     // Docker Hub credentials ID
+        RENDER_DEPLOY_URL = credentials('render-hook-url')        // Render Deploy Hook credential ID
         DOCKER_IMAGE = "yourdockerhubusername/mern-app"           // replace with your Docker Hub image name
     }
 
@@ -18,30 +18,30 @@ pipeline {
         stage('Install Dependencies & Test') {
             steps {
                 echo '🧩 Installing dependencies and running tests...'
-                sh 'npm install --legacy-peer-deps'
-                sh 'npm test || echo "⚠️ No tests found, skipping..."'
+                bat 'npm install --legacy-peer-deps'
+                bat 'npm test || echo "⚠️ No tests found, skipping..."'
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 echo '🐳 Building Docker image...'
-                sh 'docker build -t $DOCKER_IMAGE .'
+                bat "docker build -t %DOCKER_IMAGE% ."
             }
         }
 
         stage('Push Docker Image to Docker Hub') {
             steps {
                 echo '📤 Pushing Docker image to Docker Hub...'
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                sh 'docker push $DOCKER_IMAGE'
+                bat "echo %DOCKERHUB_CREDENTIALS_PSW% | docker login -u %DOCKERHUB_CREDENTIALS_USR% --password-stdin"
+                bat "docker push %DOCKER_IMAGE%"
             }
         }
 
         stage('Deploy to Render') {
             steps {
                 echo '🚀 Triggering Render deployment...'
-                sh 'curl -X POST $RENDER_DEPLOY_URL'
+                bat "curl -X POST %RENDER_DEPLOY_URL%"
             }
         }
     }
