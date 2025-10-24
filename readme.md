@@ -53,44 +53,55 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-cred')   // Docker Hub login credentials
-        RENDER_DEPLOY_URL = credentials('render-hook-url')      // Render deploy hook secret
-        DOCKER_IMAGE = "yourdockerhubusername/mern-app"         // Docker image name
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-cred')     // Docker Hub credentials ID
+        RENDER_DEPLOY_URL = credentials('render-hook-url')        // Render Deploy Hook credential ID
+        DOCKER_IMAGE = "xphenomenal/mern-app"           // replace with your Docker Hub image name
     }
 
     stages {
-        stage('Checkout') {
+        stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/yourusername/yourrepo.git'
+                echo '📦 Cloning the repository...'
+                git branch: 'main', url: 'https://github.com/Xphenomenal008/Netflixlike-webiste.git'
             }
         }
 
-        stage('Install & Test') {
+        stage('Install Dependencies') {
             steps {
-                sh 'npm install'
-                sh 'npm test || echo "No tests defined"'
+                echo '🧩 Installing dependencies in backend folder...'
+                bat 'cd backend && npm install --legacy-peer-deps'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $DOCKER_IMAGE .'
+                echo '🐳 Building Docker image...'
+                bat "docker build -t %DOCKER_IMAGE% ."
             }
         }
 
-        stage('Push to Docker Hub') {
+        stage('Push Docker Image to Docker Hub') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub-cred', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
-                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
-                    sh 'docker push $DOCKER_IMAGE'
-                }
+                echo '📤 Pushing Docker image to Docker Hub...'
+                bat "echo %DOCKERHUB_CREDENTIALS_PSW% | docker login -u %DOCKERHUB_CREDENTIALS_USR% --password-stdin"
+                bat "docker push %DOCKER_IMAGE%"
             }
         }
 
         stage('Deploy to Render') {
             steps {
-                sh "curl -X POST $RENDER_DEPLOY_URL"
+                echo '🚀 Triggering Render deployment...'
+                bat "curl -X POST %RENDER_DEPLOY_URL%"
             }
+        }
+    }
+
+    post {
+        success {
+            echo '✅ Deployment pipeline completed successfully!'
+        }
+        failure {
+            echo '❌ Deployment pipeline failed. Check console logs for details.'
         }
     }
 }

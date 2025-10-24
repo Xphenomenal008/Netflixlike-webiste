@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-cred')     // Docker Hub credentials ID
         RENDER_DEPLOY_URL = credentials('render-hook-url')        // Render Deploy Hook credential ID
-        DOCKER_IMAGE = "xphenomenal/mern-app"           // replace with your Docker Hub image name
+        DOCKER_IMAGE = "xphenomenal/mern-app"                    // replace with your Docker Hub image name
     }
 
     stages {
@@ -15,10 +15,31 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Install Backend Dependencies') {
             steps {
-                echo '🧩 Installing dependencies in backend folder...'
+                echo '🧩 Installing backend dependencies...'
                 bat 'cd backend && npm install --legacy-peer-deps'
+            }
+        }
+
+        stage('Run Backend Tests') {
+            steps {
+                echo '🧪 Running backend tests...'
+                bat 'cd backend && npx jest --coverage'
+            }
+        }
+
+        stage('Install Frontend Dependencies') {
+            steps {
+                echo '🧩 Installing frontend dependencies...'
+                bat 'cd frontend && npm install'
+            }
+        }
+
+        stage('Run Frontend Tests') {
+            steps {
+                echo '🧪 Running frontend tests...'
+                bat 'cd frontend && npm test'
             }
         }
 
