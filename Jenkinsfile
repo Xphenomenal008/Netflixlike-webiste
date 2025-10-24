@@ -25,7 +25,7 @@ pipeline {
         stage('Run Backend Tests') {
             steps {
                 echo '🧪 Running backend tests...'
-                bat 'cd backend && npx jest --coverage'
+                bat 'cd backend && npm test'
             }
         }
 
