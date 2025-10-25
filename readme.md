@@ -31,8 +31,8 @@ The pipeline is defined in the `Jenkinsfile` located in the **root of the projec
 
 Here are screenshots of the Jenkins pipeline running successfully:
 
-![Jenkins Pipeline - Stage 1](proj-img/Screenshot%202025-10-21%20162434.png)  
-![Jenkins Pipeline - Stage 2](proj-img/Screenshot%202025-10-21%20171817.png)
+![Jenkins Pipeline - Stage 1](proj-img/Screenshot1.png)  
+![Jenkins Pipeline - Stage 2](proj-img/2.png)
 
 
 ## 🔹 Deployed Website
@@ -48,14 +48,13 @@ Here’s a screenshot of the deployed app:
 
 ## 🔹 Jenkinsfile Key Sections
 
-```groovy
 pipeline {
     agent any
 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-cred')     // Docker Hub credentials ID
         RENDER_DEPLOY_URL = credentials('render-hook-url')        // Render Deploy Hook credential ID
-        DOCKER_IMAGE = "xphenomenal/mern-app"           // replace with your Docker Hub image name
+        DOCKER_IMAGE = "xphenomenal/mern-app"                    // replace with your Docker Hub image name
     }
 
     stages {
@@ -66,10 +65,31 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Install Backend Dependencies') {
             steps {
-                echo '🧩 Installing dependencies in backend folder...'
+                echo '🧩 Installing backend dependencies...'
                 bat 'cd backend && npm install --legacy-peer-deps'
+            }
+        }
+
+        stage('Run Backend Tests') {
+            steps {
+                echo '🧪 Running backend tests...'
+                bat 'cd backend && npm test'
+            }
+        }
+
+        stage('Install Frontend Dependencies') {
+            steps {
+                echo '🧩 Installing frontend dependencies...'
+                bat 'cd frontend && npm install'
+            }
+        }
+
+        stage('Run Frontend Tests') {
+            steps {
+                echo '🧪 Running frontend tests...'
+                bat 'cd frontend && npm test'
             }
         }
 
@@ -105,3 +125,5 @@ pipeline {
         }
     }
 }
+
+ 
