@@ -6,7 +6,7 @@ import { genrateTokenAndSetCokkie } from "../utilities/genrateToken.js";
 
 export const signup=async(req,res)=>{
     const {email,password,username}=req.body
-    console.log(email,password,username)
+    
      try{
         if(!email || !password || !username){
             return res.status(400).json({sucess:false,message:"All fields are required!"})
@@ -70,8 +70,6 @@ export const login=async(req,res)=>{
             password:""
            }})
     
-
-        
      }catch (error) {
         console.log(error)
         return res.status(500).json({success:false,message:"internal server error!"})
