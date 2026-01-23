@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
+import axios from "axios"
 
 const Ai_prediction = () => {
   const [intent, setIntent] = useState({
@@ -12,18 +13,27 @@ const Ai_prediction = () => {
   const [result, setResult] = useState(null);
 
   const fetchRecommendation = async () => {
+  try {
     setLoading(true);
 
-    const res = await fetch("http://localhost:5000/api/v1/ai_recomendation", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(intent),
-    });
+    const res = await axios.post(
+      "/api/v1/ai_recomendation",
+      intent,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-    const data = await res.json();
-    setResult(data);
+    setResult(res.data); 
+  } catch (error) {
+    console.error("AI recommendation error:", error);
+  } finally {
     setLoading(false);
-  };
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-black text-white">
