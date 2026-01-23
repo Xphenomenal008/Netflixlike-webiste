@@ -14,7 +14,7 @@ const Ai_prediction = () => {
   const fetchRecommendation = async () => {
     setLoading(true);
 
-    const res = await fetch("http://localhost:5000/api/recommend", {
+    const res = await fetch("http://localhost:5000/api/v1/ai_recomendation", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(intent),

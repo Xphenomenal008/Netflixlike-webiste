@@ -26,6 +26,7 @@ const Navbar = () => {
             <Menu size={28} />
           </button>
 
+
           {/* Desktop nav */}
           <nav className="hidden md:flex md:items-center gap-6 text-white px-16">
             <Link to={"/"} onClick={() => setcontenttype("movies")} className="hover:underline">
@@ -37,6 +38,24 @@ const Navbar = () => {
             <Link to={"/searchhistory"} onClick={() => setcontenttype("tvshow")} className="hover:underline">
               Search History
             </Link>
+ 
+<Link
+  to={"/recommend"}
+  className="relative inline-flex items-center justify-center rounded-full p-[2px] overflow-hidden group"
+>
+  {/* Spinning gradient border */}
+  <span className="absolute inset-[-100%] bg-[conic-gradient(from_0deg,#e50914,#f43f5e,#a855f7,#22d3ee,#e50914)] animate-spin-slow"></span>
+
+  {/* Inner button */}
+  <span className="relative z-10 bg-black rounded-full px-5 py-2 text-white font-semibold flex items-center gap-1">
+    AI Pick
+    <span className="text-red-500"></span>
+  </span>
+</Link>
+
+
+
+
           </nav>
 
           {/* Desktop Icons */}
