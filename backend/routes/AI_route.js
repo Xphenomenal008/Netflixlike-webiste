@@ -41,8 +41,8 @@ router.post("/", async (req, res) => {
 
     console.log("BEST SCORE:", best?.score);
 
-    // 🔥 relaxed but still smart
-    if (!best || best.score < 0.55) {
+    // 🔽 relaxed threshold for prediction-based system
+    if (!best || best.score < 0.45) {
       return res.json({ needMoreInfo: true });
     }
 
@@ -52,6 +52,7 @@ router.post("/", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
 
 router.post("/summarize",ai_summery)
 export default router

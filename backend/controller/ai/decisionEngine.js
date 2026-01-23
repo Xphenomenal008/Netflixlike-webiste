@@ -14,7 +14,6 @@ const GENRE_MAP = {
 export function predictOutcome(movie) {
   const runtime = movie.runtime || 120;
 
-  // 🔥 FIX: convert genre_ids → genre names
   const genres =
     movie.genre_ids?.map(id => GENRE_MAP[id]).filter(Boolean) || [];
 
@@ -33,6 +32,11 @@ export function predictOutcome(movie) {
   if (genres.includes("Drama"))
     payoff = "inspiration";
 
+  // ⭐ fallback using rating (prediction logic)
+  if (payoff === "neutral" && movie.vote_average >= 7) {
+    payoff = "comfort";
+  }
+
   const energy_after =
     payoff === "comfort" ? "calm" :
     payoff === "thrill" ? "hyped" : "neutral";
@@ -43,27 +47,34 @@ export function predictOutcome(movie) {
 export function scoreMovie(intent, outcome, movie) {
   let score = 0;
 
-  if (intent.energy === "low" && outcome.effort === "low") score += 0.4;
-  if (intent.goal === outcome.payoff) score += 0.4;
-  if (intent.attention === "short" && movie.runtime < 100) score += 0.2;
+  // 🔮 prediction signals
+  const ratingScore = (movie.vote_average || 0) / 10;       // 0–1
+  const popularityScore = Math.min((movie.popularity || 0) / 1000, 1);
+  const voteScore = Math.min((movie.vote_count || 0) / 5000, 1);
 
-  // 🔥 strong booster for relax + comfort
-  if (intent.goal === "relax" && outcome.payoff === "comfort") {
-    score += 0.3;
-  }
+  const predictionScore =
+    ratingScore * 0.5 +
+    popularityScore * 0.3 +
+    voteScore * 0.2;
+
+  score += predictionScore;
+
+  // intent alignment (light boost)
+  if (intent.goal === outcome.payoff) score += 0.2;
+  if (intent.energy === "low" && outcome.effort === "low") score += 0.1;
 
   return Math.min(score, 1);
 }
 
 export function generateExplanation(outcome, movie) {
   if (outcome.payoff === "comfort")
-    return "A light, calming watch that helps you relax without mental effort.";
+    return "Highly rated and easy to watch — good for relaxing without stress.";
 
   if (outcome.payoff === "thrill")
-    return "Fast-paced and engaging, keeps your attention high.";
+    return "Popular and high-energy, keeps you engaged throughout.";
 
   if (outcome.payoff === "inspiration")
-    return "Emotionally rich and meaningful, best for focused viewing.";
+    return "Strong ratings and emotional depth make this a meaningful watch.";
 
-  return "Balanced watch that fits your current mood.";
+  return "Well-rated and trending, a safe choice to watch now.";
 }
