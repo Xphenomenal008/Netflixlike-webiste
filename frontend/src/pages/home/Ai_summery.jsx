@@ -13,7 +13,7 @@ const AiSummary = ({ overview }) => {
   setLoading(true);
   setError(null);
   try {
-    const res = await axios.post("/api/v1/ai_summerizer", { text: overview });
+    const res = await axios.post("/api/v1/ai_summerizer/summarize", { text: overview });
     console.log("Response:", res.data); // check what comes back
     setAiData(res.data);
   } catch (err) {

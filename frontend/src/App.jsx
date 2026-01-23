@@ -15,6 +15,9 @@ import Searchpage from "./pages/components/Search"
 import Searchhistory from "./pages/components/Searchhistory"
 import Error from './pages/components/Error'
 
+import Ai_prediction from "./pages/home/Ai_prediction"
+
+
 
 function App() {
   const{user,ischeckingauth,authcheck}=useAuthstore();
@@ -48,6 +51,7 @@ function App() {
       <Route path="/watch/:id" element={user?<Watch></Watch>:<Navigate to={"/"}/>}/>
       <Route path="/search" element={user?<Searchpage></Searchpage>:<Navigate to={"/"}/>}/>
       <Route path="/searchhistory" element={user?<Searchhistory></Searchhistory>:<Navigate to={"/"}/>}/>
+      <Route path="/recommend"element={<Ai_prediction></Ai_prediction>}/>
       <Route path="/*" element={<Error></Error>}/>
 
       </Routes>
