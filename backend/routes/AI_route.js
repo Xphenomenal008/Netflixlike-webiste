@@ -37,7 +37,12 @@ router.post("/", async (req, res) => {
 
     processed.sort((a, b) => b.score - a.score);
 
-    const best = processed[0];
+// take top 5 candidates
+const topCandidates = processed.slice(0, 5);
+
+// pick one randomly
+const best =
+  topCandidates[Math.floor(Math.random() * topCandidates.length)];
 
     console.log("BEST SCORE:", best?.score);
 
