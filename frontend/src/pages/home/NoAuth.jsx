@@ -21,10 +21,11 @@ const NoAuth = () => {
     return(
       <div className='h-screen text-white relative'>
         <Navbar></Navbar>
-         
-         <div className='absolute top-0 left-0 w-full h-full bg-black/70 flex items-center justify-center -z-10 shimmer'></div>
-
-
+        <div className='absolute top-0 left-0 w-full h-full bg-gradient-to-br from-gray-900 to-black flex items-center justify-center -z-50'>
+          <div className='text-center'>
+            <p className='text-gray-400 text-lg'>Loading content...</p>
+          </div>
+        </div>
       </div>
     );
    
@@ -35,19 +36,28 @@ const NoAuth = () => {
       {imgload&&
        <div className='absolute top-0 left-0 w-full h-full bg-black/70 flex items-center justify-center -z-10 shimmer'></div>
       }
-      <img onLoad={()=>setimageload(false)} src={ORG_IMG_URL + trending?.backdrop_path} className='absolute top-0 left-0 w-full h-full object-cover -z-50' alt="hero" />
+      {trending?.backdrop_path ? (
+        <img 
+          onLoad={()=>setimageload(false)} 
+          src={ORG_IMG_URL + trending.backdrop_path} 
+          className='absolute top-0 left-0 w-full h-full object-cover -z-50' 
+          alt="hero"
+          onError={()=>setimageload(false)}
+        />
+      ) : (
+        <div className='absolute top-0 left-0 w-full h-full bg-gradient-to-br from-gray-900 to-black -z-50'></div>
+      )}
       <div className='absolute top-0 left-0 w-full h-full bg-black/50 -z-50'></div>
       <div className='absolute top-16 sm:top-20 lg:top-24 left-0 w-full h-[calc(100%-4rem)] sm:h-[calc(100%-5rem)] lg:h-[calc(100%-6rem)] flex flex-col justify-center px-0 md:px-16 lg:px-32'>
         <div className='bg-gradient-to-b from-black via-transparent to-transparent absolute w-full h-full top-0 left-0  -z-10'></div>
         <div className="main flex flex-col gap-2 p-4 lg:w-[850px]">
           <h1 className='flex flex-col '>
-  <span className='text-6xl font-extrabold text-balance'>{trending?.title || trending?.name}</span>
-          <span className='text-lg mt-2'>{trending?.release_date?.split("-")[0] ||
-             trending?.first_air_date?.split("-")[0]}{' '} | {trending?.adult?"18+":"PG-13"}</span>
+            <span className='text-6xl font-extrabold text-balance'>{trending?.title || trending?.name || "Featured Content"}</span>
+            <span className='text-lg mt-2'>{trending?.release_date?.split("-")[0] || trending?.first_air_date?.split("-")[0] || "N/A"} | {trending?.adult?"18+":"PG-13"}</span>
           </h1>
          
           <span className='text-lg text-wrap flex flex-wrap'>
-            {trending?.overview.length>200?trending?.overview.slice(0,200) + "....":trending?.overview}
+            {trending?.overview ? (trending?.overview.length>200 ? trending?.overview.slice(0,200) + "...." : trending?.overview) : "Experience premium entertainment with our curated selection."}
           </span>
           <div className='flex gap-2 mt-2'>
             <Link to={`/watch/${trending?.id}`}><button className='flex gap-1 bg-white/60 w-20 items-center justify-center text-black p-2 font-bold rounded-sm'><Play className='fill-black'></Play> Play</button></Link>
