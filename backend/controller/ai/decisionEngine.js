@@ -15,7 +15,7 @@ import { calculateSimilarityScore } from "./contentSimilarity.js";
 import { getTrendingScore, getSeasonalFactor } from "./trendingAnalyzer.js";
 
 const GENRE_MAP = getGenreMap();
-const MIN_RECOMMENDATION_SCORE = 0.35;
+const MIN_RECOMMENDATION_SCORE = 0.15;
 
 /**
  * Advanced outcome prediction based on movie metadata
@@ -126,15 +126,33 @@ export function scoreMovie(
 
   // 2. INTENT ALIGNMENT
   let intentAlignment = 0;
-  if (intent.goal === outcome.payoff) intentAlignment += 0.4;
-  if (intent.energy === outcome.energy_after) intentAlignment += 0.3;
-  if (intent.pace_preference && intent.pace_preference === "fast" && outcome.effort === "low")
-    intentAlignment += 0.2;
-  if (intent.pace_preference && intent.pace_preference === "slow" && outcome.effort === "high")
-    intentAlignment += 0.2;
+  
+  // Goal/Payoff matching
+  if (intent.goal && outcome.payoff) {
+    if (intent.goal === "relax" && (outcome.payoff === "comfort" || outcome.payoff === "emotional")) intentAlignment += 0.3;
+    else if (intent.goal === "thrill" && (outcome.payoff === "thrill" || outcome.payoff === "adventure")) intentAlignment += 0.3;
+    else if (intent.goal === "inspire" && (outcome.payoff === "inspiration" || outcome.payoff === "emotional")) intentAlignment += 0.3;
+    else intentAlignment += 0.1; // Partial match
+  } else {
+    intentAlignment += 0.15; // No goal specified, give default boost
+  }
+
+  // Energy/Effort matching
+  if (intent.attention || intent.energy) {
+    // attention: short/normal/deep
+    // energy: low/medium/high
+    if (intent.attention === "short" && outcome.effort === "low") intentAlignment += 0.25;
+    else if (intent.attention === "normal" && outcome.effort === "medium") intentAlignment += 0.25;
+    else if (intent.attention === "deep" && (outcome.effort === "high" || outcome.effort === "marathon")) intentAlignment += 0.25;
+    else intentAlignment += 0.1;
+  } else {
+    intentAlignment += 0.15;
+  }
+
+  // Quality bonus
   if (outcome.quality === "high") intentAlignment += 0.1;
 
-  score += intentAlignment * weights.intent_alignment;
+  score += Math.min(intentAlignment, 1.0) * weights.intent_alignment;
 
   // 3. TRENDING FACTOR (recency boost)
   const trendingBoost = getTrendingScore(movie.popularity, trendingMetrics);

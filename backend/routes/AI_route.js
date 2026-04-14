@@ -101,35 +101,28 @@ router.post("/", async (req, res) => {
     // Get top candidates
     const topCandidates = diverseMovies.slice(0, Math.max(3, Math.ceil(moviesData.length * 0.2)));
 
-    // Cold-start handling for new users
+    // Cold-start handling for new users - ALWAYS return a recommendation
     let bestRecommendation;
     if (session.userProfile.isColdStart || session.engagementMetrics.recsShown === 0) {
       bestRecommendation = generateColdStartRecommendation(processed, intent);
     } else {
       // Smart selection: prefer diversity if user has history, exploration if they're rejecting
       const explorationBoost = session.getExplorationLevel();
-      bestRecommendation = topCandidates[Math.floor(Math.random() * Math.min(3, topCandidates.length))];
+      bestRecommendation = topCandidates[0] || processed[0]; // Always ensure we have a recommendation
     }
 
     // A/B testing: select variant
     const variant = selectRecommendationVariant(userId, { variantA: 0.6, variantB: 0.4 });
 
-    // Check threshold
-    if (!bestRecommendation || (bestRecommendation.score || bestRecommendation.coldStartScore || 0) < MIN_RECOMMENDATION_SCORE) {
-      return res.json({
-        needMoreInfo: true,
-        message: "Unable to find a perfect match. Please refine your preferences.",
-        feedback: {
-          rejectedPayoffs: session.rejectedPayoffs,
-          tryAdjusting: ["mood", "pace", "genres"],
-        },
-      });
+    // Ensure we always return a recommendation (even if below threshold)
+    if (!bestRecommendation) {
+      bestRecommendation = processed.sort((a, b) => (b.score || 0) - (a.score || 0))[0];
     }
 
     // Log recommendation details
     console.log(`[RECOMMENDATION_SUCCESS] Score: ${(bestRecommendation.score * 100).toFixed(2)}%, Variant: ${variant}`);
 
-    // Response with rich metadata
+    // Response with rich metadata - ALWAYS return a valid recommendation
     res.json({
       recommendation: {
         ...bestRecommendation,
