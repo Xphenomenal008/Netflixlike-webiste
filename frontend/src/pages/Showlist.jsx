@@ -31,21 +31,21 @@ const Showlist = ({ item }) => {
   }
 
   return (
-    <div className='text-white bg-black relative px-7'>
-      <h2 className='mb-4 text-lg font-extrabold'>{formattedcategoryName} {formattedcontentType}</h2>
+    <div className='text-white bg-black relative px-4 sm:px-6 lg:px-8 py-4'>
+      <h2 className='mb-4 text-base sm:text-lg lg:text-xl font-extrabold'>{formattedcategoryName} {formattedcontentType}</h2>
       <div
         className='relative'
         onMouseEnter={() => setshowarrow(true)}
         onMouseLeave={() => setshowarrow(false)}
       >
-        <div className='flex space-x-3 overflow-x-scroll  scrollbar-hide '  ref={sliderref}>
+        <div className='flex space-x-2 sm:space-x-3 overflow-x-scroll scrollbar-hide' ref={sliderref}>
           {
             data.map((item) => (
-              <Link className='min-w-[360px] relative group' key={item.id} to={`/watch/${item.id}`}>
+              <Link className='min-w-[200px] sm:min-w-[280px] md:min-w-[300px] lg:min-w-[360px] relative group' key={item.id} to={`/watch/${item.id}`}>
                 <div className='overflow-hidden rounded-lg'>
-                  <img className='transition-transform duration-300 ease-in-out group-hover:scale-125' src={SMALL_IMG_URL + item.backdrop_path} alt="movie" />
+                  <img className='transition-transform duration-300 ease-in-out group-hover:scale-125 w-full' src={SMALL_IMG_URL + item.backdrop_path} alt="movie" />
                 </div>
-                <span className='flex justify-center items-center '>{item.original_title || item.name}</span>
+                <span className='flex justify-center items-center text-xs sm:text-sm font-medium mt-2 line-clamp-2'>{item.original_title || item.name}</span>
               </Link>
             ))
           }

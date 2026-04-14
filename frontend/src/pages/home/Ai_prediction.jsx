@@ -39,14 +39,14 @@ const Ai_prediction = () => {
     <div className="min-h-screen bg-black text-white">
       <Navbar />
 
-      <div className="flex justify-center items-center px-4 py-16">
+      <div className="flex justify-center items-center px-4 py-16 pt-20 sm:pt-24 lg:pt-32">
         <div className="w-full max-w-md bg-neutral-900 rounded-2xl p-6 shadow-xl">
 
           {/* ================= INTENT FORM ================= */}
           {!result && !loading && (
             <>
               <h2 className="text-2xl font-semibold mb-6 text-center">
-                Let AI decide your movie 🎬
+                Let AI decide your movie
               </h2>
 
               {/* Energy */}
@@ -148,7 +148,7 @@ const Ai_prediction = () => {
 
               <div className="flex gap-3 pt-2">
                 <button className="flex-1 bg-white text-black font-semibold py-2 rounded-lg">
-                  ▶ Play Now
+                  Play Now
                 </button>
                 <button
                   onClick={fetchRecommendation}

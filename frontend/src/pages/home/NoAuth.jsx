@@ -30,14 +30,14 @@ const NoAuth = () => {
    
   return (
     <>
-    <div className='relative h-screen text-white '>
+    <div className='relative h-screen text-white'>
       <Navbar></Navbar>
       {imgload&&
        <div className='absolute top-0 left-0 w-full h-full bg-black/70 flex items-center justify-center -z-10 shimmer'></div>
       }
       <img onLoad={()=>setimageload(false)} src={ORG_IMG_URL + trending?.backdrop_path} className='absolute top-0 left-0 w-full h-full object-cover -z-50' alt="hero" />
       <div className='absolute top-0 left-0 w-full h-full bg-black/50 -z-50'></div>
-      <div className='absolute top-0 left-0 w-full h-full flex flex-col justify-center px-0 md:px-16 lg:px-32'>
+      <div className='absolute top-16 sm:top-20 lg:top-24 left-0 w-full h-[calc(100%-4rem)] sm:h-[calc(100%-5rem)] lg:h-[calc(100%-6rem)] flex flex-col justify-center px-0 md:px-16 lg:px-32'>
         <div className='bg-gradient-to-b from-black via-transparent to-transparent absolute w-full h-full top-0 left-0  -z-10'></div>
         <div className="main flex flex-col gap-2 p-4 lg:w-[850px]">
           <h1 className='flex flex-col '>

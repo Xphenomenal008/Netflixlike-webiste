@@ -73,7 +73,7 @@ const Navbar = () => {
             >
               <span className="absolute inset-[-100%] bg-[conic-gradient(from_0deg,#e50914,#f43f5e,#a855f7,#22d3ee,#e50914)] animate-spin-slow"></span>
               <span className="relative z-10 bg-black rounded-full px-5 py-2 text-white font-semibold flex items-center gap-1 group-hover:bg-black/80 transition-colors">
-                🤖 AI Pick
+                AI Pick
               </span>
             </Link>
           </nav>
@@ -115,21 +115,21 @@ const Navbar = () => {
                 onClick={() => { setcontenttype("movies"); closeMenu(); }} 
                 className="px-4 py-2 rounded-lg hover:bg-red-600 transition-colors duration-200 font-medium"
               >
-                🎬 Movies
+                Movies
               </Link>
               <Link 
                 to={"/"} 
                 onClick={() => { setcontenttype("tvshow"); closeMenu(); }} 
                 className="px-4 py-2 rounded-lg hover:bg-red-600 transition-colors duration-200 font-medium"
               >
-                📺 TV Shows
+                TV Shows
               </Link>
               <Link 
                 to={"/searchhistory"} 
                 onClick={closeMenu}
                 className="px-4 py-2 rounded-lg hover:bg-red-600 transition-colors duration-200 font-medium"
               >
-                🔍 Search History
+                Search History
               </Link>
               
               <Link
@@ -137,7 +137,7 @@ const Navbar = () => {
                 onClick={closeMenu}
                 className="px-4 py-2 rounded-lg bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 transition-all duration-200 font-semibold flex items-center gap-2"
               >
-                🤖 AI Pick
+                AI Pick
               </Link>
             </nav>
 

@@ -71,47 +71,53 @@ const Searchhistory = () => {
       <div className="h-screen bg-black text-white">
         <Navbar />
         <div className="text-center mt-8 text-3xl font-bold">
-          No Search History Found! 🙄
+          No Search History Found!
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white pt-20 sm:pt-24 lg:pt-32">
       <Navbar />
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6 px-6 py-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6 px-4 sm:px-6 lg:px-8 py-2">
         {searchres.map((res) => (
           <div
             key={res.id}
-            className="bg-slate-700 p-3 rounded flex justify-between items-center"
+            className="bg-slate-700/80 hover:bg-slate-600 p-3 sm:p-4 rounded-lg flex flex-col sm:flex-row gap-3 transition-colors duration-200"
           >
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 flex-1">
               <img
-                className="h-16 w-16 rounded-full object-cover"
+                className="h-14 sm:h-16 w-14 sm:w-16 rounded-full object-cover flex-shrink-0"
                 src={SMALL_IMG_URL + res.image}
                 alt="img"
               />
-              <div>
-                <div className="font-semibold">{res.title}</div>
-                <div className="text-sm text-slate-400">
+              <div className="min-w-0 flex-1">
+                <div className="font-semibold text-sm sm:text-base truncate">{res.title}</div>
+                <div className="text-xs sm:text-sm text-slate-400">
                   {formatCreatedAt(res.createdAt)}
                 </div>
               </div>
             </div>
 
-            <div className="flex flex-col items-center gap-2">
+            <div className="flex items-center gap-3 sm:flex-col sm:items-center justify-between sm:justify-center">
               <div
                 className={`${
                   res.searchtype === "person" ? "bg-blue-700" : "bg-green-600"
-                } text-white text-sm px-2 py-1 rounded-full`}
+                } text-white text-xs sm:text-sm px-2 py-1 rounded-full whitespace-nowrap`}
               >
                 {res.searchtype}
               </div>
-              <Trash
+              <button
                 onClick={() => handleclick(res.id)}
-                className="cursor-pointer text-red-500 hover:text-red-700"
-              />
+                className="p-2 hover:bg-red-600/20 rounded-lg transition-colors"
+                title="Delete"
+              >
+                <Trash
+                  size={18}
+                  className="text-red-500 hover:text-red-700"
+                />
+              </button>
             </div>
           </div>
         ))}

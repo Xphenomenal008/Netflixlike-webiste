@@ -130,7 +130,7 @@ const Watch = () => {
 
         {/* ✅ Trailer section */}
         {trailer.length > 0 && (
-          <div className="flex justify-around mt-16 lg:mt-0 lg:justify-between item-center mb-4">
+          <div className="flex justify-around mt-20 sm:mt-24 lg:mt-28 lg:justify-between item-center mb-4">
             <button
               onClick={goToPreviousTrailer}
               disabled={trailerIndex === 0}
@@ -156,7 +156,7 @@ const Watch = () => {
         )}
 
         {/* ✅ Trailer video */}
-        <div className="aspect-video mb-8 p-2 sm:px-10 md:px-32">
+        <div className="aspect-video mb-8 p-1 sm:px-4 md:px-8 lg:px-16">
           {trailer.length > 0 ? (
             <ReactPlayer
               controls={true}
@@ -214,8 +214,8 @@ const Watch = () => {
         </div>
 
         {/* ✅ Similar section */}
-        <div className="text-white bg-black relative px-16 mt-3 py-3">
-          <h2 className="mb-4 text-xl font-extrabold">
+        <div className="text-white bg-black relative px-4 sm:px-8 lg:px-16 mt-6 sm:mt-8 py-4">
+          <h2 className="mb-4 text-base sm:text-lg lg:text-xl font-extrabold">
             Similar {contentType === "movies" ? "Movies" : "TV Shows"}
           </h2>
           <div
@@ -224,25 +224,25 @@ const Watch = () => {
             onMouseLeave={() => setshowarrow(false)}
           >
             <div
-              className="flex space-x-3 overflow-x-scroll scrollbar-hide"
+              className="flex space-x-2 sm:space-x-3 overflow-x-scroll scrollbar-hide"
               ref={sliderref}
             >
               {similercontent.map((item) => {
                 if (item.poster_path === null) return null;
                 return (
                   <Link
-                    className="min-w-[260px] relative group"
+                    className="min-w-[200px] sm:min-w-[240px] md:min-w-[260px] relative group"
                     key={item.id}
                     to={`/watch/${item.id}`}
                   >
                     <div className="overflow-hidden rounded-lg">
                       <img
-                        className="transition-transform duration-300 ease-in-out group-hover:scale-125 h-[360px] object-cover"
+                        className="transition-transform duration-300 ease-in-out group-hover:scale-125 w-full aspect-video object-cover"
                         src={SMALL_IMG_URL + item.backdrop_path}
                         alt="movie"
                       />
                     </div>
-                    <span className="flex justify-center items-center ">
+                    <span className="flex justify-center items-center text-xs sm:text-sm font-medium mt-2 line-clamp-2">
                       {item.original_title || item.name}
                     </span>
                   </Link>
