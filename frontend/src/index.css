@@ -2,15 +2,93 @@
 @tailwind components;
 @tailwind utilities;
 
-.hero-bg{
-  background-image:linear-gradient(rgba(0, 0, 1, 0.922),rgba(0,0,0,0.5)),url("/hero.png");
+/* Global Styles */
+@layer base {
+  * {
+    @apply transition-colors duration-200;
+  }
+
+  body {
+    @apply bg-black text-white font-netflix;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(229, 9, 20, 0.5) rgba(0, 0, 0, 0.3);
+  }
+
+  /* Webkit browsers scrollbar */
+  ::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-black/50;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-red-600 hover:bg-red-700 rounded-full;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+
+  a {
+    @apply hover:text-red-600 transition-colors duration-200;
+  }
+
+  button {
+    @apply transition-all duration-200;
+  }
+
+  input, textarea, select {
+    @apply transition-all duration-200;
+  }
 }
 
- 
+/* Hero Background */
+.hero-bg {
+  background-image: linear-gradient(rgba(0, 0, 1, 0.92), rgba(0, 0, 0, 0.5)), url("/hero.png");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
 
-@layer utilities {
+/* Responsive Padding - Accounts for fixed navbar */
+@layer components {
+  .safe-pt {
+    @apply pt-16 sm:pt-20 lg:pt-24;
+  }
+
+  /* Netflix Red Buttons */
+  .btn-netflix {
+    @apply px-6 py-2 rounded-lg font-semibold bg-red-600 hover:bg-red-700 text-white 
+           transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  /* Netflix Ghost Buttons */
+  .btn-ghost {
+    @apply px-6 py-2 rounded-lg font-semibold bg-transparent hover:bg-white/10 text-white 
+           border border-white/20 transition-all duration-200 active:scale-95;
+  }
+
+  /* Glass Effect Cards */
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg hover:border-white/20 
+           transition-all duration-200;
+  }
+
+  /* Movie/Show Grid Item */
+  .grid-item {
+    @apply relative group rounded-lg overflow-hidden bg-slate-800/60 hover:bg-slate-700 
+           border border-slate-700 hover:border-red-600/50 transition-all duration-200 cursor-pointer;
+  }
+
+  .grid-item:hover {
+    @apply shadow-lg shadow-red-600/20 scale-105;
+  }
+
+  /* Shimmer Loading Animation */
   .shimmer {
-    @apply relative overflow-hidden bg-gray-300;
+    @apply relative overflow-hidden bg-gray-700/50;
   }
 
   .shimmer::after {
@@ -23,21 +101,115 @@
     background-image: linear-gradient(
       90deg,
       rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 0.6) 50%,
+      rgba(255, 255, 255, 0.2) 50%,
       rgba(255, 255, 255, 0) 100%
     );
-    animation: shimmer 1s infinite;
+    animation: shimmer 2s infinite;
   }
 
   @keyframes shimmer {
     0% {
       left: -150%;
     }
-    50% {
-      left: 100%;
-    }
     100% {
       left: 100%;
     }
   }
+
+  /* Loading Spinner */
+  .loading-spinner {
+    @apply animate-spin rounded-full border-4 border-gray-700 border-t-red-600;
+  }
+
+  /* Text Truncate with Gradient */
+  .text-truncate-gradient {
+    @apply line-clamp-2 text-ellipsis overflow-hidden;
+  }
+
+  /* Responsive Text */
+  .text-responsive {
+    @apply text-sm sm:text-base lg:text-lg;
+  }
+
+  /* Responsive Padding */
+  .px-responsive {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+
+  .py-responsive {
+    @apply py-4 sm:py-6 lg:py-8;
+  }
+
+  /* Fade In Animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  /* Slide In Animation */
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-slide-in {
+    animation: slideInUp 0.5s ease-in-out;
+  }
+}
+
+/* Responsive Design Utilities */
+@media (max-width: 640px) {
+  .mobile-hidden {
+    @apply hidden;
+  }
+
+  .mobile-full {
+    @apply w-full;
+  }
+}
+
+@media (min-width: 641px) {
+  .desktop-hidden {
+    @apply hidden;
+  }
+}
+
+/* Print Styles */
+@media print {
+  body {
+    @apply bg-white text-black;
+  }
+
+  .no-print {
+    @apply hidden;
+  }
+}
+
+/* Accessibility - Focus Visible */
+*:focus-visible {
+  @apply outline-none ring-2 ring-red-600 ring-offset-2 ring-offset-black;
+}
+
+/* Smooth Scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection Color */
+::selection {
+  @apply bg-red-600 text-white;
 }
